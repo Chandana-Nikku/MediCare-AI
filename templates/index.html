@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HealthAI Application</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+  .welcome-card {
+    background:rgba(181, 226, 245, 0.7);;
+    border-radius: 20px;
+    max-width: 1100px;
+    min-width: 700px;
+    margin: 90px auto 36px auto;
+    padding: 36px 28px 28px 28px;
+    box-shadow: 0 6px 22px 0 rgba(100,100,100,0.13);
+    text-align: center;
+  }
+  .welcome-card h1 {
+    margin-bottom: 16px;
+  }
+  .welcome-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s;
+  position: relative;  /* enables z-index */
+  z-index: 2;          /* normal state, can be 1 or 2 */
+}
+
+.welcome-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  z-index: 99;         /* high value brings it in front on hover! */
+}
+
+  .card-deck-row {
+    display: flex;
+    gap: 2.5vw;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 0 25px 0;
+  }
+  .card-deck-card {
+    background:  rgba(255, 255, 255, 0.82);;
+    border-radius: 14px;
+    box-shadow: 0 2px 11px 0 rgba(80,100,155,0.6);
+    width: 220px;
+    min-height: 270px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 17px 14px 17px 14px;
+    transition: 0.16s transform, 0.22s box-shadow;
+    position: relative;
+  }
+  .card-deck-card:hover {
+    transform: translateY(-10px) scale(1.035);
+    box-shadow: 0 8px 24px 0 rgba(65,110,175,0.23);
+    z-index: 2;
+  }
+  .card-deck-img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    box-shadow: 0 1px 8px rgba(80,100,150,0.08);
+    background: #e8f3fa;
+  }
+  .card-deck-title {
+    font-size: 1.07rem;
+    color: #183864;
+    font-weight: 700;
+    margin-bottom: 11px;
+    text-align: center;
+  }
+  .card-deck-desc {
+    color: #3a3e47;
+    font-size: 0.99rem;
+    text-align: center;
+    min-height: 36px;
+    margin-bottom: 19px;
+    margin-top: 2px;
+  }
+  .learn-more-btn {
+    background: #2196ee;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 8px 24px;
+    font-size: .98rem;
+    cursor: pointer;
+    margin-top: auto;
+    transition: background 0.16s, box-shadow 0.16s;
+    box-shadow: 0 1px 5px rgba(33,150,238,0.03);
+  }
+  .learn-more-btn:hover {
+    background: #155e99;
+    box-shadow: 0 3px 10px rgba(33,150,238,0.13);
+  }
+  @media (max-width: 1000px) {
+    .welcome-card {min-width:unset; width:97%;}
+    .card-deck-row {gap: 1vw;}
+    .card-deck-card {width: 180px;}
+  }
+  @media (max-width:780px) {
+    .welcome-card {padding:22px 4vw;}
+    .card-deck-row {flex-direction: column; align-items: center;}
+    .card-deck-card {width:95%; margin-bottom:15px;}
+  }
+  </style>
+</head>
+<body>
+  <div class="background-image"></div>
+  <div class="background-overlay"></div>
+  <!-- Top Navbar -->
+  <div class="navbar">
+    <h1 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size: 30px;">
+      <marquee scrollamount="15"> MediCare AI : Smart AI-Driven Healthcare Companion</marquee>
+    </h1>
+  </div>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="#" data-target="homePanel">🏠 Home</a>
+    <a href="#" data-target="chatPanel">💬 Patient Chat Assistant</a>
+    <a href="#" data-target="predictPanel">🩺 Disease Identifier</a>
+    <a href="#" data-target="remedyPanel">🌿 Home Remedies</a>
+    <a href="#" data-target="treatmentPanel">📝 Treatment Plan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Generator</a>
+    <a href="#" data-target="dashboardPanel">📊 Health Dashboard</a>
+    <a href="#" data-target="tipsPanel">💡 Health Tips</a>
+    <a href="#" data-target="exercisePanel">🏋️ Exercise Recommendation</a>
+  </div>
+  <!-- Main Content -->
+  <div class="main">
+    <!-- Home Section -->
+    <div id="homePanel" class="panel" style="display: block;">
+      <div class="welcome-card">
+        <h1>Welcome to MediCare AI</h1>
+        <p style="font-family:'Times New Roman', Times, serif"><b>
+          This is your personal AI-powered healthcare Companion. MediCare AI can predict possible diseases based on your symptoms and provide natural remedies for common health issues. Receive daily health tips to stay fit and maintain wellness. Chat with our AI assistant for quick, reliable health guidance. Powered by IBM WatsonX, MediCare AI delivers accurate insights and personalized recommendations. All your health information, tips, wellness and guidance are available in one convenient platform. Start taking control of your health today with MediCare AI.
+        </b></p>
+      </div>
+      <div class="card-deck-row">
+        <div class="card-deck-card">
+          <img class="card-deck-img" src="static/img/se.png" alt="Heart Rate"/>
+          <div class="card-deck-title">Self Care</div>
+          <div class="card-deck-desc">Empower your well-being: track, improve, and thrive every day</div>
+          <a class="learn-more-btn" href="/selfcare" style="text-decoration: none;">Learn More</a>
+
+        </div>
+        <div class="card-deck-card">
+          <img class="card-deck-img" src="static/img/food.png" alt="Blood Pressure"/>
+          <div class="card-deck-title">Nutrition Insights</div>
+          <div class="card-deck-desc">Monitor blood pressure patterns to help you manage your health with confidence</div>
+           <a class="learn-more-btn" href="/nutrition" style="text-decoration: none;">Learn More</a>
+        </div>
+        <div class="card-deck-card">
+          <img class="card-deck-img" src="static/img/ww.jpg"alt="Glucose Level"/>
+          <div class="card-deck-title">Stress Free Living</div>
+          <div class="card-deck-desc">Practical strategies to manage stress and improve overall mental well-being</div>
+  <a class="learn-more-btn" href="/wellness" style="text-decoration: none;">Learn More</a>
+        </div>
+      </div>
+    </div>
+    <!-- Patient Chat Section -->
+    <div id="chatPanel" class="panel">
+      <div class="chat-card">
+        <h3>💬 Patient Chat Assistant</h3>
+        <div id="chatWindow" class="chat-window"></div>
+        <div class="chat-input">
+          <textarea id="chatInput" placeholder="Ask your health question..."></textarea>
+          <button onclick="sendChat()">Send</button>
+        </div>
+      </div>
+    </div>
+    <!-- Symptoms Predictor Section -->
+    <div id="predictPanel" class="panel">
+      <div class="card">
+        <h3>🩺 Disease Identifier</h3>
+        <textarea id="symptomInput" placeholder="Enter your symptoms..."></textarea>
+        <button onclick="submitForm('/predict', 'symptomInput', 'predictResult')">Get Result</button>
+        <div id="predictResult" class="result"></div>
+      </div>
+    </div>
+    <!-- Remedies Section -->
+    <div id="remedyPanel" class="panel">
+      <div class="card">
+        <h3>🌿Home Remedies</h3>
+        <textarea id="remedyInput" placeholder="Enter symptoms or disease..."></textarea>
+        <button onclick="submitForm('/remedies', 'remedyInput', 'remedyResult')">Get Remedies</button>
+        <div id="remedyResult" class="result"></div>
+      </div>
+    </div>
+    <!-- Treatment Plan -->
+    <div id="treatmentPanel" class="panel" style="display: none;">
+      <div class="card-container">
+        <div class="treatment-card">
+          <h3>📝 Treatment Plan Generator</h3>
+          <input type="number" id="ageInput" placeholder="Age">
+          <input type="text" id="genderInput" placeholder="Gender (e.g., Male/Female)">
+          <input type="text" id="conditionInput" placeholder="Condition (e.g., stomach pain)">
+          <input type="text" id="medicationsInput" placeholder="Current Medications (optional)">
+          <button onclick="getTreatmentPlan()">Get Plan</button>
+        </div>
+        <div id="treatmentResults" class="popup-card"></div>
+      </div>
+    </div>
+    <!-- Dashboard Panel -->
+    <div id="dashboardPanel" class="panel">
+      <div class="card scrollable-dashboard">
+        <h3>📊 Health Dashboard</h3>
+        <p>Enter your 7-day data (comma-separated):</p>
+        <label>Heart Rate</label>
+        <textarea id="heartRateInput" placeholder="e.g. 72, 75, 78, 80, 77, 74, 76"></textarea>
+        <label>Blood Pressure (Systolic)</label>
+        <textarea id="bpInput" placeholder="e.g. 120, 125, 130, 128, 124, 122, 126"></textarea>
+        <label>Blood Glucose</label>
+        <textarea id="glucoseInput" placeholder="e.g. 95, 100, 105, 110, 108, 102, 106"></textarea>
+        <button onclick="getInsights()">Generate AI Insights + Chart</button>
+        <div id="insightsResult" class="result" style="white-space: pre-wrap; margin-top: 20px;"></div>
+        <div style="overflow-x: auto; overflow-y: auto; max-height: 400px; margin-top: 20px;">
+          <canvas id="healthChart" width="1200" height="600" style="background: white; border-radius: 8px;"></canvas>
+        </div>
+      </div>
+    </div>
+    <!-- Health Tips Section -->
+    <div id="tipsPanel" class="panel">
+      <div class="card tips-card">
+        <h3>🌞 Health Tips Generator </h3>
+        <button onclick="getTips()" class="tips-btn">Get Health Tips</button>
+      </div>
+      <div id="tipsResult" class="tips-result"></div>
+    </div>
+    <!-- Exercise Recommendation Panel -->
+    <div id="exercisePanel" class="panel" style="display:none;">
+      <div class="exercise-container">
+        <div class="exercise-card input-card">
+          <h3>🏋️ Exercise Recommendations</h3>
+          <input type="text" id="exerciseInput" placeholder="Enter disease or condition" style="width: 80%;">
+          <button onclick="getExerciseRecommendation()">Get Exercises</button>
+        </div>
+        <div class="exercise-card result-card">
+          <h3 style="color:rgb(255, 255, 255)">💪🏻 Recommended Exercises</h3>
+          <div id="exerciseResult" class="result-box"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- JavaScript -->
+  <script>
+    // Panel switching
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = link.getAttribute('data-target');
+        if (!target) return;
+        document.querySelectorAll('.panel').forEach(panel => panel.style.display = 'none');
+        document.getElementById(target).style.display = 'block';
+      });
+    });
+    // Generic form submission
+    async function submitForm(url, inputId, outputId) {
+      const input = document.getElementById(inputId).value;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `user_input=${encodeURIComponent(input)}`
+      });
+      const data = await res.json();
+      document.getElementById(outputId).innerText = data.result || "❌ No response";
+    }
+    // Chatbot logic
+    async function sendChat() {
+      const input = document.getElementById("chatInput").value.trim();
+      if (!input) return;
+      const chatWindow = document.getElementById("chatWindow");
+      const userBubble = document.createElement("div");
+      userBubble.className = "chat-bubble user-bubble";
+      userBubble.innerText = input;
+      chatWindow.appendChild(userBubble);
+      document.getElementById("chatInput").value = "";
+      try {
+        const res = await fetch("/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: `user_input=${encodeURIComponent(input)}`
+        });
+        const data = await res.json();
+        const botBubble = document.createElement("div");
+        botBubble.className = "chat-bubble bot-bubble";
+        botBubble.innerText = data.result || "❌ No response received.";
+        chatWindow.appendChild(botBubble);
+      } catch (error) {
+        console.error("Chat error:", error);
+        const errorBubble = document.createElement("div");
+        errorBubble.className = "chat-bubble bot-bubble";
+        errorBubble.innerText = "⚠️ Error communicating with server.";
+        chatWindow.appendChild(errorBubble);
+      }
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+    // Health tips
+    async function getTips() {
+      const res = await fetch('/tips');
+      const data = await res.json();
+      const container = document.getElementById("tipsResult");
+      container.innerHTML = "";
+      const lines = data.result.split(/\n|•|👉|-/).filter(l => l.trim());
+      lines.forEach(line => {
+        const tip = document.createElement("div");
+        tip.className = "tip-card";
+        tip.innerText = line.trim();
+        container.appendChild(tip);
+      });
+    }
+    // AI Insights for dashboard
+    let chartInstance;
+    async function getInsights() {
+      const heart = document.getElementById("heartRateInput").value.trim();
+      const bp = document.getElementById("bpInput").value.trim();
+      const sugar = document.getElementById("glucoseInput").value.trim();
+      if (!heart || !bp || !sugar) {
+        alert("Please fill in all fields.");
+        return;
+      }
+      const formData = new FormData();
+      formData.append("heart_rate", heart);
+      formData.append("blood_pressure", bp);
+      formData.append("glucose", sugar);
+      const res = await fetch("/ai-insights", {
+        method: "POST",
+        body: formData
+      });
+      const data = await res.json();
+      document.getElementById("insightsResult").innerText = data.result || "⚠️ No insights returned.";
+      // Draw Chart
+      const labels = ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"];
+      const heartData = heart.split(",").map(Number);
+      const bpData = bp.split(",").map(Number);
+      const sugarData = sugar.split(",").map(Number);
+      const ctx = document.getElementById("healthChart").getContext("2d");
+      if (chartInstance) chartInstance.destroy();
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Heart Rate',
+              data: heartData,
+              borderColor: '#ff6384',
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              fill: true
+            },
+            {
+              label: 'Blood Pressure',
+              data: bpData,
+              borderColor: '#36a2eb',
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              fill: true
+            },
+            {
+              label: 'Blood Glucose',
+              data: sugarData,
+              borderColor: '#ffce56',
+              backgroundColor: 'rgba(255, 206, 86, 0.2)',
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom' },
+            title: {
+              display: true,
+              text: 'Health Trends Over 7 Days'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: false
+            }
+          }
+        }
+      });
+    }
+    // Sidebar Navigation Logic
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = link.getAttribute('data-target');
+        document.querySelectorAll('.panel').forEach(panel => panel.style.display = 'none');
+        document.getElementById(target).style.display = 'block';
+      });
+    });
+    async function getTreatmentPlan() {
+      const age = document.getElementById("ageInput").value.trim();
+      const gender = document.getElementById("genderInput").value.trim();
+      const condition = document.getElementById("conditionInput").value.trim();
+      const medications = document.getElementById("medicationsInput").value.trim();
+      if (!age || !gender || !condition) {
+        alert("Please enter age, gender, and condition.");
+        return;
+      }
+      const user_input = `Age: ${age}, Gender: ${gender}, Condition: ${condition}, Medications: ${medications || "None"}`;
+      try {
+        const res = await fetch("/treatment", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: `user_input=${encodeURIComponent(user_input)}`
+        });
+        const data = await res.json();
+        const result = data.plan || "⚠️ No plan generated.";
+        document.getElementById("treatmentResults").innerHTML = `
+          <h4>📋 Treatment Plan</h4>
+          <div class="plan-content">${result.replace(/\n/g, "<br>")}</div>
+        `;
+      } catch (err) {
+        console.error("Treatment plan error:", err);
+        document.getElementById("treatmentResults").innerText = "⚠️ Failed to get treatment plan.";
+      }
+    }
+  </script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

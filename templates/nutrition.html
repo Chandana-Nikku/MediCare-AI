@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Nutrition Insights – MediCare AI</title>
+<link rel="stylesheet" href="/static/css/style.css" />
+<style>
+  html, body {
+    height: 100%;
+    margin: 0; padding: 0;
+    scroll-behavior: smooth;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    background: linear-gradient(102deg, #fcf6ff 0%, #e7f2fa 95%);
+    overflow-x: hidden;
+  }
+  /* Navbar */
+  .navbar {
+    width: 100%;
+    padding: 0 40px 0 0vw;
+    position: sticky;
+    top: 0; left: 0;
+    z-index: 30; 
+    background: linear-gradient(90deg,#194080 80%,#2998cf 100%);
+    min-height: 66px;
+    box-shadow: 0 4px 24px 0 rgba(16,59,133,0.14);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    font-size: 1.25rem;
+  }
+  .nav-title {
+    color: #f0fdff;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1.3px;
+    background: linear-gradient(87deg,#6cf7ec 38%, #dafcfa 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav-home-btn {
+    background: linear-gradient(100deg,#6de1ff 40%,#2998cf 100%);
+    padding: 10px 10px;
+    border-radius: 50%;
+    color: #0f336f;
+    font-weight: 700;
+    font-size: 1.15rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px 0 #1772c630;
+    text-decoration: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    transition: background 0.22s ease-in-out, box-shadow 0.18s ease-in-out;
+  }
+  .nav-home-btn:hover {
+    background: linear-gradient(100deg,#97e4ff 40%,#4db5ff 100%);
+    box-shadow: 0 6px 22px 0 #0c64a433;
+  }
+  .nav-home-btn:before {
+    content: "🏠";
+    font-size: 1.26rem;
+    line-height: 1;
+  }
+  /* Main container */
+  .main-content {
+    margin: 2em auto;
+    max-width: 960px;
+    padding: 2vw 4vw;
+    display: flex;
+    align-items: flex-start;
+    gap: 64px;
+  }
+  /* Big central bubble */
+  .big-bubble {
+    flex-shrink: 0;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #beeafe 15%, #fad6e6);
+    box-shadow: 0 8px 48px 0 rgba(50, 140, 210, 0.27);
+    overflow: hidden;
+    animation: floatMove 5.6s ease-in-out infinite alternate;
+    opacity: 0;
+    transform: translateX(-250px);
+    transition: opacity 2.8s ease, transform 2.8s ease;
+    position: relative;
+    z-index: 2;
+  }
+  .big-bubble.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .big-bubble img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  /* Right text content */
+  .content-text {
+    flex: 1;
+    opacity: 0;
+    transform: translateX(250px);
+    transition: opacity 2.8s ease, transform 2.8s ease;
+  }
+  .content-text.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .content-text h1 {
+    color: #33aaff;
+    margin-bottom: 0.5em;
+  }
+  .content-text p.intro {
+    color: #304660;
+    font-weight: 600;
+    font-size: 1.14rem;
+    margin-bottom: 1.5em;
+    line-height: 1.45;
+  }
+  .content-text h2 {
+    color: #126899;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+  }
+  .content-text ul {
+    list-style-type: disc;
+    padding-left: 24px;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #222f43;
+  }
+  @keyframes floatMove {
+    0%   {transform: translateY(0);}
+    100% {transform: translateY(-24px);}
+  }
+  @media (max-width: 720px) {
+    .main-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .big-bubble {
+      width: 350px;
+      height: 350px;
+      transform: translateX(0) !important;
+      opacity: 1 !important;
+      margin-bottom: 24px;
+    }
+    .content-text {
+      transform: translateX(0) !important;
+      opacity: 1 !important;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="navbar">
+    <span class="nav-title"> &nbsp;&nbsp;&nbsp;MediCare AI : Smart AI-Driven Healthcare Companion</span>
+    <a class="nav-home-btn" href="/"> </a>
+  </div>
+  <main class="main-content">
+    <div id="bubble" class="big-bubble">
+      <img src="/static/img/diet.jpg" alt="Nutrition Insights" />
+    </div>
+    <div id="contentText" class="content-text">
+      <h1>Nutrition Insights</h1>
+      <p class="intro">
+        Discover the power of nutrition to fuel your body, mind, and life.
+        Learn about balanced diets, essential vitamins, and healthy habits.
+      </p>
+      <h2>Key nutrition tips:</h2>
+      <ul style="font-size: 22px;">
+        <li>Eat a colorful variety of fruits and vegetables daily.</li>
+        <li>Choose whole grains over processed grains for more nutrients.</li>
+        <li>Include lean proteins, such as fish, beans, and nuts.</li>
+        <li>Limit added sugars and excessive salt intake.</li>
+        <li>Stay hydrated to support digestion and energy.</li>
+      </ul>
+    </div>
+  </main>
+  <script>
+    function animateContent() {
+      const content = document.getElementById('contentText');
+      const bubble = document.getElementById('bubble');
+      const threshold = window.innerHeight * 0.8;
+      if (content.getBoundingClientRect().top < threshold) {
+        content.classList.add('show');
+        bubble.classList.add('show');
+        window.removeEventListener('scroll', animateContent);
+      }
+    }
+    window.addEventListener('scroll', animateContent);
+    window.addEventListener('load', animateContent);
+  </script>
+</body>
+</html>

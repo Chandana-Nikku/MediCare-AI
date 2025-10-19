@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Self-Care Tracker – MediCare AI</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+    body {
+      background: linear-gradient(102deg, #fcf6ff 0%, #e7f2fa 95%);
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAVBAR FIXED & IMPROVED ===== */
+    .navbar {
+  width: 100%; /* ✅ Fix overflow issue */
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  background: linear-gradient(90deg, #194080 80%, #2998cf 100%);
+  min-height: 66px;
+  box-shadow: 0 4px 24px 0 rgba(16,59,133,0.14);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5vw; /* ✅ balanced padding so button fits nicely */
+  font-size: 1.23rem;
+  overflow: hidden; /* ensures no horizontal scroll */
+  padding: 0 40px 0 0vw;
+
+}
+
+    .navbar .nav-title {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      font-weight: 700;
+      font-size: 1.46rem;
+      color: #f0fdff;
+      letter-spacing: 1.2px;
+      text-shadow: 0 2px 8px #1a8ea070;
+      background: linear-gradient(87deg,#6cf7ec 38%, #dafcfa 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .navbar .nav-home-btn {
+      background: linear-gradient(100deg, #f4fafe 70%, #2196ee 100%);
+      color: #103d70;
+      font-weight: 700;
+      padding: 18px 18px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 14px rgba(26, 136, 184, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .navbar .nav-home-btn:hover,
+    .navbar .nav-home-btn:focus {
+      background: linear-gradient(101deg, #d6efff 45%, #9eebfc 100%);
+      color: #0d4f85;
+      transform: translateY(-2px);
+    }
+
+    /* MOBILE NAV FIX */
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 20px;
+      }
+      .navbar .nav-home-btn {
+        margin-top: 8px;
+        align-self: flex-end;
+      }
+      .navbar .nav-title {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* ===== PAGE CONTENT ===== */
+    .sc-outer-scroll {
+      height: 92vh;
+      max-height: 100vh;
+      overflow-y: auto;
+      scrollbar-color: #7faaff #e4eaf3;
+      scrollbar-width: thin;
+      background: transparent;
+    }
+    .sc-outer-scroll::-webkit-scrollbar {
+      width: 10px;
+    }
+    .sc-outer-scroll::-webkit-scrollbar-thumb {
+      background: #a7c9ff;
+      border-radius: 7px;
+    }
+    .sc-outer-scroll::-webkit-scrollbar-track {
+      background: #f4faff;
+    }
+    .sc-container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 44px 2vw 44px 2vw;
+      background: transparent;
+    }
+    .sc-feature-row {
+      display: flex;
+      align-items: stretch;
+      min-height: 330px;
+      gap: 38px;
+      margin: 60px 0 48px 0;
+      justify-content: center;
+      overflow: visible;
+    }
+    .sc-feature-row:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    .sc-img-outer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 210px;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #d8f2e2, #beeafe, #fad6e6);
+      box-shadow: 0 6px 22px rgba(45,150,215,0.15);
+      position: relative;
+      animation: floatImage 3.5s ease-in-out infinite alternate;
+      overflow: hidden;
+    }
+    .sc-feature-row:nth-child(even) .sc-img-outer {
+      background: linear-gradient(135deg,#fae6d7 30%,#cce7ff 100%);
+    }
+    .sc-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: none;
+      background: none;
+      transition: transform 0.46s cubic-bezier(.4,0,.2,1);
+    }
+    .sc-feature-row.show .sc-img {
+      transform: scale(1.07) rotate(-2deg);
+    }
+    .sc-content-block {
+      flex: 1;
+      min-width: 270px;
+      padding: 8px 15px;
+      opacity: 0;
+      transform: translateX(180px);
+      transition: opacity 2.2s cubic-bezier(.29,.75,.19,1.16),
+                  transform 2.2s cubic-bezier(.25,0,.10,1.10);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .sc-feature-row:nth-child(even) .sc-content-block {
+      transform: translateX(-180px);
+    }
+    .sc-feature-row.show .sc-content-block {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .sc-title {
+      font-size: 2.18rem;
+      color: #1270b8;
+      font-weight: bold;
+      margin-bottom: 14px;
+      background: linear-gradient(90deg, #4dd0e1 37%, #42a5f5 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .sc-list-title {
+      font-size: 1.21rem;
+      font-weight:600;
+      color: #095070;
+      margin: 16px 0 4px 0;
+      display: flex;
+      align-items:center;
+      gap:8px;
+      letter-spacing: 0.5px;
+    }
+    .sc-details {
+      color: #4a505d;
+      font-size: 1.03rem;
+      margin-bottom: 8px;
+      margin-top: 5px;
+    }
+    .sc-content-block ul {
+      margin-left: 18px;
+      font-size: 1.08rem;
+      color: #1a273a;
+      margin-bottom: 10px;
+      margin-top: 4px;
+      line-height: 2.04;
+    }
+    .sc-tagline {
+      margin-top: 22px;
+      color: #1976d2;
+      font-size: 1.18rem;
+      font-weight: 650;
+      background: linear-gradient(120deg, #fffec6 0%, #b6eafc 80%);
+      padding: 11px 22px;
+      border-radius: 17px;
+      box-shadow: 0 2px 9px rgba(30,175,220,0.11);
+      display: inline-block;
+      animation: fadeTagline 2.1s;
+    }
+    @keyframes floatImage {
+      0% {transform: translateY(0);}
+      100% {transform: translateY(-20px);}
+    }
+    @keyframes fadeTagline {
+      from {opacity: 0; transform: translateY(35px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    @media (max-width: 1000px) {
+      .sc-feature-row, .sc-feature-row:nth-child(even) {
+        flex-direction: column;
+        min-height: auto;
+      }
+      .sc-img-outer {margin-bottom:20px;}
+      .sc-tagline{font-size:1.06rem;}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <span class="nav-title"> &nbsp;&nbsp;&nbsp;MediCare AI : Smart AI-Driven Healthcare Companion</span>
+    <a class="nav-home-btn" href="/"> 🏠</a>
+  </div>
+
+  <div class="sc-outer-scroll">
+    <div class="sc-container">
+      <div class="sc-feature-row">
+        <div class="sc-img-outer">
+          <img class="sc-img" src="/static/img/sleep.jpg" alt="Sleep Tracking" />
+        </div>
+        <div class="sc-content-block">
+          <div class="sc-title">Self-Care</div>
+          <div class="sc-list-title">Good Sleep 🛌</div>
+          <div class="sc-details">
+            Getting enough quality sleep is essential for your brain, heart, immune system, mood, and daily energy.
+          </div>
+          <ul>
+            <li>Avoid screens at least 30 minutes before bedtime.</li>
+            <li>Monitor sleep quality and interruptions.</li>
+            <li>Set bedtime and wake-up reminders.</li>
+            <li>Compare week-to-week sleep patterns.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sc-feature-row">
+        <div class="sc-img-outer">
+          <img class="sc-img" src="/static/img/water.jpg" alt="Hydration Tracker" />
+        </div>
+        <div class="sc-content-block">
+          <div class="sc-list-title">Stay Hydrated 💧</div>
+          <div class="sc-details">
+            Staying hydrated is vital for wellness—track every glass and unlock healthy skin and energy.
+          </div>
+          <ul>
+            <li>Keep a water bottle with you all day.</li>
+            <li>Get smart reminders to stay hydrated.</li>
+            <li>Drink more water during exercise or hot weather.</li>
+            <li>Eat water-rich fruits and vegetables.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sc-feature-row">
+        <div class="sc-img-outer">
+          <img class="sc-img" src="/static/img/habits.jpg" alt="Personal Goals" />
+        </div>
+        <div class="sc-content-block">
+          <div class="sc-list-title">Build Personal Goals & Habits 📋</div>
+          <div class="sc-details">
+            Achieve lasting positive change—track habits, celebrate milestones, and visualize your well-being journey.
+          </div>
+          <ul>
+            <li>Create and monitor daily or weekly self-care goals.</li>
+            <li>Customize meditation, journaling, walking, gratitude, etc.</li>
+            <li>Get AI-powered suggestions for consistency.</li>
+          </ul>
+          <div class="sc-tagline">
+            Stay on top of your health—track sleep, hydration, and personal goals effortlessly!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Animate sections when they scroll into view
+    document.querySelectorAll('.sc-feature-row').forEach(row => { row.classList.remove('show'); });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('show'), 260);
+        }
+      });
+    }, { threshold: 0.21 });
+    document.querySelectorAll('.sc-feature-row').forEach(row => observer.observe(row));
+  </script>
+</body>
+</html>

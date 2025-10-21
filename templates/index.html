@@ -119,14 +119,14 @@
   </div>
   <!-- Sidebar -->
   <div class="sidebar">
-    <a href="#" data-target="homePanel">🏠 Home</a>
-    <a href="#" data-target="chatPanel">💬 Patient Chat Assistant</a>
-    <a href="#" data-target="predictPanel">🩺 Disease Identifier</a>
-    <a href="#" data-target="remedyPanel">🌿 Home Remedies</a>
-    <a href="#" data-target="treatmentPanel">📝 Treatment Plan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Generator</a>
-    <a href="#" data-target="dashboardPanel">📊 Health Dashboard</a>
-    <a href="#" data-target="tipsPanel">💡 Health Tips</a>
-    <a href="#" data-target="exercisePanel">🏋️ Exercise Recommendation</a>
+    <a href="#" data-target="homePanel">Home</a>
+    <a href="#" data-target="chatPanel">Patient Chat Assistant</a>
+    <a href="#" data-target="predictPanel">Disease Identifier</a>
+    <a href="#" data-target="remedyPanel">Home Remedies</a>
+    <a href="#" data-target="treatmentPanel">Treatment Plan Generator</a>
+    <a href="#" data-target="dashboardPanel">Health Dashboard</a>
+    <a href="#" data-target="tipsPanel">Health Tips</a>
+    <a href="#" data-target="exercisePanel">Exercise Recommendation</a>
   </div>
   <!-- Main Content -->
   <div class="main">
@@ -163,7 +163,7 @@
     <!-- Patient Chat Section -->
     <div id="chatPanel" class="panel">
       <div class="chat-card">
-        <h3>💬 Patient Chat Assistant</h3>
+        <h3>Patient Chat Assistant</h3>
         <div id="chatWindow" class="chat-window"></div>
         <div class="chat-input">
           <textarea id="chatInput" placeholder="Ask your health question..."></textarea>
@@ -174,7 +174,7 @@
     <!-- Symptoms Predictor Section -->
     <div id="predictPanel" class="panel">
       <div class="card">
-        <h3>🩺 Disease Identifier</h3>
+        <h3>Disease Identifier</h3>
         <textarea id="symptomInput" placeholder="Enter your symptoms..."></textarea>
         <button onclick="submitForm('/predict', 'symptomInput', 'predictResult')">Get Result</button>
         <div id="predictResult" class="result"></div>
@@ -183,7 +183,7 @@
     <!-- Remedies Section -->
     <div id="remedyPanel" class="panel">
       <div class="card">
-        <h3>🌿Home Remedies</h3>
+        <h3>Home Remedies</h3>
         <textarea id="remedyInput" placeholder="Enter symptoms or disease..."></textarea>
         <button onclick="submitForm('/remedies', 'remedyInput', 'remedyResult')">Get Remedies</button>
         <div id="remedyResult" class="result"></div>
@@ -193,7 +193,7 @@
     <div id="treatmentPanel" class="panel" style="display: none;">
       <div class="card-container">
         <div class="treatment-card">
-          <h3>📝 Treatment Plan Generator</h3>
+          <h3>Treatment Plan Generator</h3>
           <input type="number" id="ageInput" placeholder="Age">
           <input type="text" id="genderInput" placeholder="Gender (e.g., Male/Female)">
           <input type="text" id="conditionInput" placeholder="Condition (e.g., stomach pain)">
@@ -206,7 +206,7 @@
     <!-- Dashboard Panel -->
     <div id="dashboardPanel" class="panel">
       <div class="card scrollable-dashboard">
-        <h3>📊 Health Dashboard</h3>
+        <h3>Health Dashboard</h3>
         <p>Enter your 7-day data (comma-separated):</p>
         <label>Heart Rate</label>
         <textarea id="heartRateInput" placeholder="e.g. 72, 75, 78, 80, 77, 74, 76"></textarea>
@@ -224,7 +224,7 @@
     <!-- Health Tips Section -->
     <div id="tipsPanel" class="panel">
       <div class="card tips-card">
-        <h3>🌞 Health Tips Generator </h3>
+        <h3>Health Tips Generator </h3>
         <button onclick="getTips()" class="tips-btn">Get Health Tips</button>
       </div>
       <div id="tipsResult" class="tips-result"></div>
@@ -233,7 +233,7 @@
     <div id="exercisePanel" class="panel" style="display:none;">
       <div class="exercise-container">
         <div class="exercise-card input-card">
-          <h3>🏋️ Exercise Recommendations</h3>
+          <h3>Exercise Recommendations</h3>
           <input type="text" id="exerciseInput" placeholder="Enter disease or condition" style="width: 80%;">
           <button onclick="getExerciseRecommendation()">Get Exercises</button>
         </div>
@@ -428,3 +428,4 @@
   <script src="/static/js/app.js"></script>
 </body>
 </html>
+
